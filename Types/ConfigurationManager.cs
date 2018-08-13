@@ -6,9 +6,9 @@ namespace Types
 {
     public class ConfigurationManager
     {
-        public string Hash;
-        public string ngAuthSecret;
-        public string AppSecret;
-        public string defaultAdminPsw;
+        public string Hash { get; set; }
+        public string ngAuthSecret { get; set; }
+        public string AppSecret { get; set; }
+        public string defaultAdminPsw { get; set; }
     }
 }

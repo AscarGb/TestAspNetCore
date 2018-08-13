@@ -39,7 +39,7 @@ namespace DataLayer
             return _userManager.GetRolesAsync(user);
         }
 
-        public async Task<IdentityUser> FindUser(string userName, string password)
+        public async Task<ApplicationUser> FindUser(string userName, string password)
         {
             ApplicationUser user = await _userManager.FindByNameAsync(userName);
 
@@ -51,9 +51,9 @@ namespace DataLayer
             return null;
         }
 
-        public async Task<IdentityUser> FindUser(string userName)
+        public async Task<ApplicationUser> FindUser(string userName)
         {
-            IdentityUser user = await _userManager.FindByNameAsync(userName);
+            ApplicationUser user = await _userManager.FindByNameAsync(userName);
 
             return user;
         }

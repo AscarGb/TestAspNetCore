@@ -24,15 +24,10 @@ namespace TestCore
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<AuthContext>();
+                //var context = services.GetRequiredService<AuthContext>();
                 try
                 {
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    var helper = services.GetRequiredService<Helper>();
-                    var configurationManager = services.GetRequiredService<IOptions<ConfigurationManager>>();
-
-                    DbInitializer.InitializeAsync(context, userManager, roleManager, helper, configurationManager);
+                    services.GetRequiredService<DbInitializer>().Initialize();
                 }
                 catch (Exception ex)
                 {
