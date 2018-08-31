@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Types;
 
 namespace TestCore
@@ -28,7 +30,8 @@ namespace TestCore
             //конфиги из файла
             services.AddOptions();
             services.Configure<ConfigurationManager>(Configuration.GetSection("ConfigurationManager"));
-            
+            services.Configure<AuthOptions>(Configuration.GetSection("AuthOptions"));
+
             services.AddTransient<Helper>();
 
             services.AddTransient<DbInitializer>();
@@ -45,15 +48,44 @@ namespace TestCore
             services.AddTransient<IAuthRepository, AuthRepository>();
 
             services.AddCors();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         .AddJwtBearer(options =>
+         {
+             AuthOptions authOptions = Configuration.GetSection("AuthOptions").Get<AuthOptions>();
+
+             options.RequireHttpsMetadata = false;
+             options.TokenValidationParameters = new TokenValidationParameters
+             {
+                 // укзывает, будет ли валидироваться издатель при валидации токена
+                 ValidateIssuer = true,
+                 // строка, представляющая издателя
+                 ValidIssuer = authOptions.Issuer,
+
+                 // будет ли валидироваться потребитель токена
+                 ValidateAudience = true,
+                 // установка потребителя токена
+                 ValidAudience = authOptions.Audience,
+                 // будет ли валидироваться время существования
+                 ValidateLifetime = true,
+
+                 // установка ключа безопасности
+                 IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
+                 // валидация ключа безопасности
+                 ValidateIssuerSigningKey = true,
+             };
+         });
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {            
-            app.UseCors(builder => builder.AllowAnyOrigin());            
+        {
+            app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc();
 
             if (env.IsDevelopment())
