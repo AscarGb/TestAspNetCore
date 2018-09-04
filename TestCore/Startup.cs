@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using OAuthProvider;
 using Types;
 
 namespace TestCore
@@ -36,7 +37,7 @@ namespace TestCore
 
             services.AddTransient<Helper>();
 
-            services.AddTransient<DbInitializer>();
+            services.AddTransient<DbInitializer>();            
 
             //внедрение контекста бд
             services.AddDbContext<AuthContext>(options =>
@@ -48,6 +49,8 @@ namespace TestCore
 
             //внедрение репозитория данных
             services.AddTransient<IAuthRepository, AuthRepository>();
+
+            services.AddTransient<IOAuthProvider, OAuthProviderImplement>();
 
             services.AddCors();
 
@@ -86,7 +89,11 @@ namespace TestCore
             app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseAuthentication();
+
+            app.UseOAuth();
+
+            app.UseAuthentication();          
+
             app.UseMvc();
 
             if (env.IsDevelopment())

@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCore", "TestCore\TestCore.csproj", "{5CC1C17E-DA4B-4A44-9F00-51E4FE61CB94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Types", "Types\Types.csproj", "{71979704-5A6C-4925-BF07-574285143922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Types", "Types\Types.csproj", "{71979704-5A6C-4925-BF07-574285143922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{340BE826-97AB-4BCD-8AC2-5898A02D52F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{340BE826-97AB-4BCD-8AC2-5898A02D52F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthProvider", "OAuthProvider\OAuthProvider.csproj", "{CE0EF614-19CD-4DCB-8C6B-EC92800E4B8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{340BE826-97AB-4BCD-8AC2-5898A02D52F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340BE826-97AB-4BCD-8AC2-5898A02D52F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340BE826-97AB-4BCD-8AC2-5898A02D52F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE0EF614-19CD-4DCB-8C6B-EC92800E4B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE0EF614-19CD-4DCB-8C6B-EC92800E4B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE0EF614-19CD-4DCB-8C6B-EC92800E4B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE0EF614-19CD-4DCB-8C6B-EC92800E4B8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
